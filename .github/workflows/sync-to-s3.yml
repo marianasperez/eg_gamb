@@ -20,10 +20,12 @@ jobs:
         run: |
           aws --version  # Check if AWS CLI is already installed and display the version
           
-      - name: Upload CSV to S3
+      - name: Upload CSV files to S3
         run: |
-          aws s3 cp ./*.csv s3://your-bucket-name/ --recursive  # Correct path for CSV files
+          for file in ./*.csv; do
+            aws s3 cp "$file" s3://my-github-csv-files/  # Upload each CSV file individually to the correct bucket
+          done
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}  # GitHub Secret for Access Key
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}  # GitHub Secret for Secret Access Key
-          AWS_DEFAULT_REGION: "us-east-1"  # Optional: Update to your AWS region
+          AWS_DEFAULT_REGION: "ap-southeast-1"  # Correct region for Australia (Melbourne)
