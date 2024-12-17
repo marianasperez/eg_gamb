@@ -7,11 +7,6 @@ on:
     paths:
       - '**/*.csv'  # Only trigger when a CSV file is changed
   workflow_dispatch:  # This allows you to manually trigger the workflow
-    inputs:
-      message:
-        description: 'Optional message'
-        required: false
-        default: 'Manual trigger'
 
 jobs:
   sync-to-s3:
@@ -27,7 +22,7 @@ jobs:
           
       - name: Upload CSV to S3
         run: |
-          aws s3 cp ./path-to-your-csv/*.csv s3://your-bucket-name/ --recursive
+          aws s3 cp ./*.csv s3://your-bucket-name/ --recursive  # Correct path for CSV files
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}  # GitHub Secret for Access Key
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}  # GitHub Secret for Secret Access Key
