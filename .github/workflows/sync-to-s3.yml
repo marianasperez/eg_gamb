@@ -3,9 +3,11 @@ name: Sync CSV to S3
 on:
   push:
     branches:
-      - main  # Trigger when a CSV file is pushed to the 'main' branch
+      - main
     paths:
-      - '**/*.csv'  # Only trigger when a CSV file is changed
+      - '**/*.csv'
+  workflow_dispatch:  # This allows you to manually trigger the workflow from GitHub
+
 
 jobs:
   sync-to-s3:
