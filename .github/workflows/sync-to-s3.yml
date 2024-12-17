@@ -3,11 +3,15 @@ name: Sync CSV to S3
 on:
   push:
     branches:
-      - main
+      - main  # Trigger when a CSV file is pushed to the 'main' branch
     paths:
-      - '**/*.csv'
-  workflow_dispatch:  # This allows you to manually trigger the workflow from GitHub
-
+      - '**/*.csv'  # Only trigger when a CSV file is changed
+  workflow_dispatch:  # This allows you to manually trigger the workflow
+    inputs:
+      message:
+        description: 'Optional message'
+        required: false
+        default: 'Manual trigger'
 
 jobs:
   sync-to-s3:
@@ -17,12 +21,10 @@ jobs:
       - name: Checkout GitHub repository
         uses: actions/checkout@v2  # This step checks out the repository code
 
-      - name: Set up AWS CLI (Alternative Method)
+      - name: Set up AWS CLI (Pre-installed)
         run: |
-          curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
-          unzip awscliv2.zip
-          sudo ./aws/install  # Alternative install method
-
+          aws --version  # Check if AWS CLI is already installed and display the version
+          
       - name: Upload CSV to S3
         run: |
           aws s3 cp ./path-to-your-csv/*.csv s3://your-bucket-name/ --recursive
