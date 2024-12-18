@@ -2,154 +2,129 @@
 # Gambling Data Analysis
 
 ## Overview
+This repository contains data related to gambling activities, including user information, betting activity, transactions, referral programmes, customer support interactions, and wallet transactions. The data is stored in CSV format and includes realistic transaction dates, bet information, and other metrics, designed for analysis in tools such as Tableau. The data has been uploaded manually to GitHub under **`eg_gamb`** and can be accessed for analysis, visualization, and reporting.
 
-This repository contains data related to gambling activities, including user information, betting activity, transactions, referral programmes, customer support interactions, and wallet transactions. The data is stored in CSV format and includes realistic transaction dates, bet information, and other metrics, designed for analysis in tools such as **Tableau**.
+The repository also includes automation workflows to synchronize the data with **AWS S3** and a Tableau connection via **AWS Athena** for easy access and analysis.
 
 ## Data Structure
 
 The following tables are included in this repository:
 
-### 1. **user.csv**
-- **Description**: Contains information about users in the gambling system.
-- **Columns**:
-  - `id`: Unique identifier for each user.
-  - `name`: Name of the user.
-  - `created_at`: Date when the user account was created.
+1. **user.csv**
+   - Description: Contains information about users in the gambling system.
+   - Columns: `id`, `name`, `created_at`.
 
-### 2. **wallet.csv**
-- **Description**: Contains details about user wallets, each associated with a unique currency.
-- **Columns**:
-  - `id`: Unique identifier for each wallet.
-  - `currency`: The currency type for the wallet (e.g., USD, EUR, BRL).
-  - `created_at`: Date when the wallet was created.
+2. **wallet.csv**
+   - Description: Contains details about user wallets, each associated with a unique currency.
+   - Columns: `id`, `currency`, `created_at`.
 
-### 3. **game.csv**
-- **Description**: Contains information about the games available in the gambling system.
-- **Columns**:
-  - `id`: Unique identifier for each game.
-  - `name`: Name of the game (e.g., Samurai Dogs).
-  - `provider`: The provider of the game (e.g., Twist, Stake.com).
-  - `created_at`: Date when the game was added to the system.
+3. **game.csv**
+   - Description: Contains information about the games available in the gambling system.
+   - Columns: `id`, `name`, `provider`, `created_at`.
 
-### 4. **bets.csv**
-- **Description**: Contains details of the bets placed by users, including the game played, bet value, and the outcome.
-- **Columns**:
-  - `id`: Unique identifier for each bet.
-  - `user_id`: Identifier of the user who placed the bet.
-  - `game_id`: Identifier of the game that the bet was placed on.
-  - `value`: The amount of the bet.
-  - `multiplier`: The multiplier for the bet outcome.
-  - `profit`: The profit made from the bet.
-  - `created_at`: Date when the bet was placed.
+4. **bets.csv**
+   - Description: Contains details of the bets placed by users, including the game played, bet value, and the outcome.
+   - Columns: `id`, `user_id`, `game_id`, `value`, `multiplier`, `profit`, `created_at`.
 
-### 5. **transaction.csv**
-- **Description**: Contains details about wallet transactions, including deposits and withdrawals.
-- **Columns**:
-  - `wallet_id`: Unique identifier for the wallet.
-  - `amount`: The amount of money involved in the transaction.
-  - `transaction_type`: Type of transaction (`deposit` or `withdrawal`).
-  - `transaction_date`: Date of the transaction.
+5. **transaction.csv**
+   - Description: Contains details about wallet transactions, including deposits and withdrawals.
+   - Columns: `wallet_id`, `amount`, `transaction_type`, `transaction_date`.
 
-### 6. **referral_program.csv**
-- **Description**: Contains information about the referral programme, where users can refer others and receive bonuses.
-- **Columns**:
-  - `id`: Unique identifier for each referral record.
-  - `referrer_user_id`: The user who made the referral.
-  - `referred_user_id`: The user who was referred.
-  - `referral_date`: Date of the referral.
-  - `bonus_awarded`: Bonus received by the referrer.
+6. **referral_program.csv**
+   - Description: Contains information about the referral programme, where users can refer others and receive bonuses.
+   - Columns: `id`, `referrer_user_id`, `referred_user_id`, `referral_date`, `bonus_awarded`.
 
-### 7. **customer_support.csv**
-- **Description**: Contains information about customer support tickets raised by users.
-- **Columns**:
-  - `id`: Unique identifier for each support interaction.
-  - `user_id`: The user who raised the support ticket.
-  - `support_ticket_id`: Identifier for the support ticket.
-  - `issue_type`: Type of issue (e.g., account locked, deposit issue).
-  - `resolution_status`: Status of the issue (resolved or unresolved).
-  - `issue_timestamp`: Date and time when the issue was raised.
+7. **customer_support.csv**
+   - Description: Contains information about customer support tickets raised by users.
+   - Columns: `id`, `user_id`, `support_ticket_id`, `issue_type`, `resolution_status`, `issue_timestamp`.
 
-### 8. **transaction_history.csv**
-- **Description**: Contains the history of transactions for users, including deposits and withdrawals.
-- **Columns**:
-  - `user_id`: Unique identifier for the user.
-  - `transaction_date`: Date of the transaction.
-  - `amount`: The amount of money involved in the transaction.
-  - `transaction_status`: The status of the transaction (completed or pending).
+8. **transaction_history.csv**
+   - Description: Contains the history of transactions for users, including deposits and withdrawals.
+   - Columns: `user_id`, `transaction_date`, `amount`, `transaction_status`.
 
-### 9. **wallet_transaction.csv**
-- **Description**: Contains detailed wallet transaction information.
-- **Columns**:
-  - `wallet_id`: Unique identifier for the wallet.
-  - `transaction_type`: Type of transaction (deposit or withdrawal).
-  - `amount`: The amount of money involved.
-  - `transaction_date`: The date of the transaction.
+9. **wallet_transaction.csv**
+   - Description: Contains detailed wallet transaction information.
+   - Columns: `wallet_id`, `transaction_type`, `amount`, `transaction_date`.
 
-### 10. **exchange_rate.csv**
-- **Description**: Contains exchange rates for different currencies.
-- **Columns**:
-  - `currency`: Currency type (e.g., USD, EUR).
-  - `rate`: The exchange rate for the currency.
-  - `created_at`: Date when the exchange rate was recorded.
+10. **exchange_rate.csv**
+    - Description: Contains exchange rates for different currencies.
+    - Columns: `currency`, `rate`, `created_at`.
 
-### 11. **deposit.csv** (New)
-- **Description**: Contains deposit details, including `wallet_id`, `value`, and `created_at`.
-- **Columns**:
-  - `wallet_id`: Unique identifier for the wallet.
-  - `value`: The amount deposited.
-  - `created_at`: Date when the deposit was made.
+11. **deposit.csv** (New)
+    - Description: Contains deposit details, including wallet_id, value, and created_at.
+    - Columns: `wallet_id`, `value`, `created_at`.
 
-### 12. **user_kyc.csv** 
-- **Description**: Contains KYC (Know Your Customer) details with `user_id`, `kyc_level`, and `created_at`.
-- **Columns**:
-  - `user_id`: Unique identifier for the user.
-  - `kyc_level`: The KYC level of the user.
-  - `created_at`: Date when the KYC level was assigned.
+12. **user_kyc.csv**
+    - Description: Contains KYC (Know Your Customer) details with user_id, kyc_level, and created_at.
+    - Columns: `user_id`, `kyc_level`, `created_at`.
 
-### 13. **campaign.csv** 
-- **Description**: Contains campaign details like `id`, `name`, `user_id`, and `created_at`.
-- **Columns**:
-  - `id`: Unique identifier for the campaign.
-  - `name`: Name of the campaign.
-  - `user_id`: The user associated with the campaign.
-  - `created_at`: Date when the campaign was created.
+13. **campaign.csv**
+    - Description: Contains campaign details like id, name, user_id, and created_at.
+    - Columns: `id`, `name`, `user_id`, `created_at`.
 
-### 14. **referral.csv** 
-- **Description**: Tracks user referrals with `campaign_id` and `referral_user_id`.
-- **Columns**:
-  - `campaign_id`: Unique identifier for the campaign.
-  - `referral_user_id`: Unique identifier for the user who made the referral.
+14. **referral.csv**
+    - Description: Tracks user referrals with campaign_id and referral_user_id.
+    - Columns: `campaign_id`, `referral_user_id`.
 
-### 15. **user_location.csv** 
-- **Description**: Contains the geographical location of users, including city, country, and optional latitude/longitude for precise mapping.
-- **Columns**:
-  - `user_id`: Unique identifier for the user (links to `user.csv`).
-  - `city`: The city where the user is located.
-  - `country`: The country where the user is located.
-  - `latitude`: Latitude for precise mapping.
-  - `longitude`: Longitude for precise mapping.
-  - `created_at`: Date when the location data was recorded.
+15. **user_location.csv**
+    - Description: Contains the geographical location of users, including city, country, and optional latitude/longitude for precise mapping.
+    - Columns: `user_id`, `city`, `country`, `latitude`, `longitude`, `created_at`.
 
 ## Getting Started
 
-### Prerequisites
+To get started with this project, follow these steps:
 
-1. **Tableau** or another data analysis tool to visualise and analyse the data.
-2. GitHub account to access the repository and clone/download the files.
+### 1. **Data Upload Process**
 
-### How to Load the Data into Tableau
+The data is stored in CSV format and is manually uploaded to the GitHub repository. Each CSV file corresponds to a table that represents different aspects of gambling activities, such as user data, bet transactions, wallet information, and more. The tables and data are updated manually, and future improvements may include automation using Python scripts to update the data.
 
-1. **Clone or download the repository**:
-   - Clone the repository using Git or download the ZIP file and extract it to your computer.
+- **Automation**: Although the data was manually uploaded due to time constraints, an automation process using Python can be done in the future for regular data updates.
+- **CSV Files**: The CSV files are in the repository under the **`eg_gamb`** directory.
 
-2. **Connect Tableau to the data**:
-   - Open Tableau and go to **Data** > **Web Data Connector**.
-   - Use the **raw URL** for each CSV file (available after uploading to GitHub).
-   - Load the data from the raw URL into Tableau.
+### 2. **AWS S3 Setup and Policies**
 
-3. **Start analysing**:
-   - Use Tableau to create visualisations like trends in bets, transaction volumes, user activity, and more.
+To access the data from GitHub and S3, the following setup was completed:
+- **AWS S3 Bucket**: Created a bucket named `my-github-csv-files` to store the CSV files.
+- **IAM Policies**: AWS IAM policies, users, and roles were set up to allow the necessary permissions for data transfer between GitHub and S3.
+  - Custom policy for S3 can be seen under  **eg_gamb>S3_bucketpolicy**
 
-## Conclusion
+### 3. **Synchronization with AWS S3**
 
-This dataset can be used for a variety of analytical tasks, including understanding user behaviour, tracking financial transactions, and analysing customer support trends in a gambling system. The data is designed to be realistic and is structured to provide valuable insights.
+The CSV data from GitHub is automatically uploaded to **AWS S3** using a **GitHub Actions workflow** called **`sync-to-s3.yml`**  under the **eg_gamb>github/workflows**.
+
+- **S3 Bucket**: The data is stored in an S3 bucket named **`my-github-csv-files`**. 
+- **Automatic Updates**: Every time the CSV files in the GitHub repository are updated, the workflow ensures that the data in S3 is automatically refreshed.
+  - Results for S3 Bucket can be seen under **eg_gamb>S3 bucket & Objects.png**
+
+### 4. **Connecting AWS Athena with Tableau**
+
+To facilitate data analysis and reporting in Tableau, the following steps were taken:
+
+- **Gambling Database**: A database named **gambling_db** was created in AWS **Athena** to store the data.
+- **Raw and Clean Tables**: Two queries were created to define the raw and clean tables within the gambling database in Athena.
+  - **Raw Tables**: These tables are directly created from the CSV data.
+  - **Clean Tables**: Additional tables are created after data processing and cleaning.
+- Query Examples can be seen under **eg_gamb>Athena_queryexample**
+- Results can be seen under **eg_gamb>Athena Data, Query & Tables.png**
+  
+### 5. **Configuring Tableau with AWS Athena**
+
+To connect Tableau with AWS Athena:
+
+- **ODBC Connection**: Configured the **ODBC data source** for Amazon Athena. Download from https://docs.aws.amazon.com/athena/latest/ug/odbc-v2-driver.html
+- **Keys**: Provided the necessary keys to authenticate and access Athena from Tableau.
+- **Database Connection**: Connected Tableau to the `gambling_db` database in Athena to visualize and analyze the data.
+  - Results can be seen under **eg_gamb>Tableau & Athena Connection.png**
+
+### 6. **Dashboard Creation**
+- A dynamic Tableau dashboard was created to visualise gambling data stored in AWS Athena, connecting to the `gambling_db` database via ODBC.
+- The dashboard includes key metrics such as betting volumes, profit/loss analysis, transaction patterns, and user referral activity.
+- Interactive filters and drill-down capabilities allow users to explore specific data points and trends in greater detail.
+- The connection to AWS Athena ensures the dashboard is automatically updated with the latest data from S3, offering real-time insights into gambling activities.
+
+### 7. **Future Improvements**
+
+- **Automation**: As mentioned earlier, the process of uploading data and syncing with AWS S3 is currently done manually. Python scripts can be used for continuous data updates.
+- **Data Integrity**: Future improvements will include adding data validation and cleaning processes to ensure the quality of the data.
+- **Tableau Dashboards**: Enhancements to the Tableau dashboards can include more complex visualizations and automated reporting.
+
