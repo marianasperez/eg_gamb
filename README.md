@@ -86,15 +86,15 @@ The data is stored in CSV format and is manually uploaded to the GitHub reposito
 To access the data from GitHub and S3, the following setup was completed:
 - **AWS S3 Bucket**: Created a bucket named `my-github-csv-files` to store the CSV files.
 - **IAM Policies**: AWS IAM policies, users, and roles were set up to allow the necessary permissions for data transfer between GitHub and S3.
-  - Custom policy for S3 can be seen under  **eg_gamb>S3_bucketpolicy**
+  - Custom policy for S3 can be seen under  **eg_gamb/S3_bucketpolicy**
 
 ### 3. **Synchronization with AWS S3**
 
-The CSV data from GitHub is automatically uploaded to **AWS S3** using a **GitHub Actions workflow** called **`sync-to-s3.yml`**  under the **eg_gamb>github/workflows**.
+The CSV data from GitHub is automatically uploaded to **AWS S3** using a **GitHub Actions workflow** called **`sync-to-s3.yml`**  under the **eg_gamb/.github/workflows**.
 
 - **S3 Bucket**: The data is stored in an S3 bucket named **`my-github-csv-files`**. 
 - **Automatic Updates**: Every time the CSV files in the GitHub repository are updated, the workflow ensures that the data in S3 is automatically refreshed.
-  - Results for S3 Bucket can be seen under **eg_gamb>S3 bucket & Objects.png**
+  - Results for S3 Bucket can be seen under **eg_gamb/S3 bucket & Objects.png**
  
 ### 3.1 **CI/CD (Continuous Integration and Continuous Delivery) with GitHub Actions**
 
@@ -113,8 +113,8 @@ To facilitate data analysis and reporting in Tableau, the following steps were t
 - **Raw and Clean Tables**: Two queries were created to define the raw and clean tables within the gambling database in Athena.
   - **Raw Tables**: These tables are directly created from the CSV data.
   - **Clean Tables**: Additional tables are created after data processing and cleaning.
-- Query Examples can be seen under **eg_gamb>Athena_queryexample**
-- Results can be seen under **eg_gamb>Athena Data, Query & Tables.png**
+- Query Examples can be seen under **eg_gamb/Athena_queryexample**
+- Results can be seen under **eg_gamb/Athena Data, Query & Tables.png**
   
 ### 5. **Configuring Tableau with AWS Athena**
 
@@ -123,7 +123,7 @@ To connect Tableau with AWS Athena:
 - **ODBC Connection**: Configured the **ODBC data source** for Amazon Athena. Download from https://docs.aws.amazon.com/athena/latest/ug/odbc-v2-driver.html
 - **Keys**: Provided the necessary keys to authenticate and access Athena from Tableau.
 - **Database Connection**: Connected Tableau to the `gambling_db` database in Athena to visualize and analyze the data.
-  - Results can be seen under **eg_gamb>Tableau & Athena Connection.png**
+  - Results can be seen under **eg_gamb/Tableau & Athena Connection.png**
 
 ### 6. **Dashboard Creation**
 - A dynamic Tableau dashboard was created to visualise gambling data stored in AWS Athena, connecting to the `gambling_db` database via ODBC.
