@@ -95,6 +95,15 @@ The CSV data from GitHub is automatically uploaded to **AWS S3** using a **GitHu
 - **S3 Bucket**: The data is stored in an S3 bucket named **`my-github-csv-files`**. 
 - **Automatic Updates**: Every time the CSV files in the GitHub repository are updated, the workflow ensures that the data in S3 is automatically refreshed.
   - Results for S3 Bucket can be seen under **eg_gamb>S3 bucket & Objects.png**
+ 
+### 3.1 **CI/CD (Continuous Integration and Continuous Delivery) with GitHub Actions**
+
+The GitHub Actions workflow automates the process of uploading data to **AWS S3**, making it an integral part of the **CI/CD pipeline** for this project. This approach ensures:
+- **Continuous Integration**: Every change made to the repository (such as new or updated CSV files) triggers the GitHub Actions workflow. This allows for seamless integration of new data without manual intervention, ensuring that the data stored in S3 is always up to date with the latest changes made in the repository.
+- **Continuous Delivery**: Once the data is pushed to GitHub, the workflow automatically deploys the updated CSV files to the S3 bucket. This ensures that Tableau and other connected services have access to the most recent data, without requiring manual uploads, thus reducing errors and ensuring timely delivery of data.
+
+The **CI/CD** pipeline enhances the project’s scalability and ensures that updates to the data are deployed quickly, enabling smooth operations and analysis across various platforms (e.g., Tableau via Athena).
+- **Workflow File**: You can see the details of the GitHub Actions workflow in the **`sync-to-s3.yml`** file under **`eg_gamb/.github/workflows`**.
 
 ### 4. **Connecting AWS Athena with Tableau**
 
