@@ -1,0 +1,21 @@
+-- Example of the campaign table creation
+CREATE EXTERNAL TABLE IF NOT EXISTS campaign (
+    id STRING, 
+    name STRING,
+    user_id STRING,
+    created_at STRING
+)
+ROW FORMAT DELIMITED
+FIELDS TERMINATED BY ',' 
+LINES TERMINATED BY '\n'
+LOCATION 's3://my-github-csv-files/campaign/'
+TBLPROPERTIES ('skip.header.line.count'='1');
+
+-- Example of the campaign_clean table creation
+CREATE TABLE campaign_cleaned AS
+SELECT 
+    CAST(REGEXP_REPLACE(CAST(id AS VARCHAR), '"', '') AS INT) AS id,  -- Remove quotes and cast to INT
+    REGEXP_REPLACE(name, '"', '') AS name,            -- Remove quotes from name
+    CAST(REGEXP_REPLACE(CAST(user_id AS VARCHAR), '"', '') AS INT) AS user_id,  -- Remove quotes and cast to INT
+    CAST(REGEXP_REPLACE(CAST(created_at AS VARCHAR), '"', '') AS TIMESTAMP) AS created_at  -- Remove quotes from timestamp
+FROM campaign;
